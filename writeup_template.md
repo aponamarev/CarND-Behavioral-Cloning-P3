@@ -70,7 +70,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, sharp corner steering, and left and right cameras. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground thrueth).
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, sharp corner steering, and left and right cameras. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground truth).
 
 For details about how I created the training data, see the next section. 
 
@@ -78,7 +78,7 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to test a simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.
 
 My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
 
