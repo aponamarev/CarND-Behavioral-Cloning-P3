@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./examples/data_distribution.png "data_distribution"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
@@ -48,7 +48,7 @@ The model.py contains the code for training and saving the convolution neural ne
 ### Model Architecture and Training Strategy
 The model was trained using the following settings:
 
-python model.py --top_crop 50 --model_type SimplifiedModel --shift_value 0.5 --batch_size 128 --epochs 3 --model_name SimpleDropoutModel_croppped_shift0.5.h5
+python model.py --top_crop 50 --model_type SimplifiedModel --noshift --batch_size 256 --epochs 5 --model_name model.h5
 
 #### 1. An appropriate model architecture has been employed
 
@@ -128,11 +128,11 @@ The model was trained and validated on different subsets sets created by trainin
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 102).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 105).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The data was augmented with sharp corner steering. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground truth).
+Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The dataset alone was sufficient to train a fully functional neural net (thus eliminating a need for additional data collection). The dataset was augmented using synthetic oversampling (model.py lines 72 - 88) in order to achieve a roughly uniform distribution of steering angles.
 
 For details about how I created the training data, see the next section. 
 
@@ -140,27 +140,19 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstraited by NVIDIA net.
+The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstrated by NVIDIA net.
 
-However, in order to reduceoverfiting and increase training speed I used dropout and batch normalization. In addition, I replanced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
+However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
 
-At training the model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by turning off the dropout at evaluation stage. The improvement in accuracy also signifies the absence of overfitting.
+At training, a selected model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by a combination of simpler data samples and the effect of turning off the dropout at evaluation stage. A validation set skewed towards samples with small steering angles (driving on a straight line).The improvement in accuracy also signifies the absence of overfitting.
 
 The final step was to run the simulator to see how well the car was driving around track one. The car successfully navigated the track one for 5 laps at default speed of 9mph. In addition, I tested the net at 15mph setting, and the model successfully completed the track.
 
-####2. Final Model Architecture
+#### 2. Creation of the Training Set & Training Process
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+To capture good driving behavior, I started with the dataset provided by Udacity. The data set was heavily skewed towards driving on the straight-line. Therefore I had to create synthetic over-sampling algorithm that allowed me to rebalance the number of samples with high degree of steering (sharp turns) to achieve a uniform distribution.
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-####3. Creation of the Training Set & Training Process
-
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
+![data_distribution][image1]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
