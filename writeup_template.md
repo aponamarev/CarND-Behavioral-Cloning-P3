@@ -48,7 +48,7 @@ The model.py contains the code for training and saving the convolution neural ne
 ### Model Architecture and Training Strategy
 The model was trained using the following settings:
 
-python model.py --data_location data/attempt2 --shift_value 0.2 --batch_size 128 --top_crop 50 ----batch_size 128 epochs 5 --model_name SimpleModel_attempt2_shift_0.2.h5
+python model.py --top_crop 50 --model_type SimplifiedModel --shift_value 0.5 --batch_size 128 --epochs 3 --model_name SimpleDropoutModel_croppped_shift0.5.h5
 
 #### 1. An appropriate model architecture has been employed
 
@@ -56,7 +56,7 @@ For training purpose I tested various neural networks ranging in depth between 1
 
 My model consists of a 10 convolution neural network layers with 3x3 filter sizes and depths between 16 and 128 channels (src/Models/SimplifiedModel.py lines 18-31) 
 
-The model includes RELU activations to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer (code line 17).
+The model includes RELU activations to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer (code line 17). The detailed model architecture is presented below:
 
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to                     
@@ -122,7 +122,7 @@ Non-trainable params: 608
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layer in order to reduce overfitting (src/Models/SimplifiedModel.py line 34). 
+The model contains dropout layers in order to reduce overfitting (src/Models/SimplifiedModel.py line 20, 24, 28, 33, and 38). 
 
 The model was trained and validated on different subsets sets created by training and validation split (15%) to ensure that the model was not overfitting (model.py line 79). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -132,7 +132,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, sharp corner steering, and left and right cameras. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground truth).
+Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The data was augmented with sharp corner steering. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground truth).
 
 For details about how I created the training data, see the next section. 
 
@@ -140,19 +140,13 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to test a simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.
+The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstraited by NVIDIA net.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+However, in order to reduceoverfiting and increase training speed I used dropout and batch normalization. In addition, I replanced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+At training the model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by turning off the dropout at evaluation stage. The improvement in accuracy also signifies the absence of overfitting.
 
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+The final step was to run the simulator to see how well the car was driving around track one. The car successfully navigated the track one for 5 laps at default speed of 9mph. In addition, I tested the net at 15mph setting, and the model successfully completed the track.
 
 ####2. Final Model Architecture
 
