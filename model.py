@@ -80,11 +80,8 @@ n, bins, patches = plt.hist([train_steering, train_steering[binned_indices]],
                             bins=FLAGS.bins,
                             label=['train_steering','rebalanced_steering'],
                             color=['grey', 'blue'])
-<<<<<<< HEAD
+
 plt.xlabel('Steering Values')
-=======
-plt.xlabel('Classes')
->>>>>>> 2abfe97a84cb2c9edc27f95677f88a34eed13c6e
 plt.ylabel('Samples')
 plt.legend()#handles=['train_steering','rebalanced_steering']
 plt.show()
