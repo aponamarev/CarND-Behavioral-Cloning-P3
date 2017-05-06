@@ -132,7 +132,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The dataset alone was sufficient to train a fully functional neural net (thus elliminating a need for additional data collection). The dataset was augmented using syntetic oversampling in order to achieve a roughly uniform distribution of steering angles.
+Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The dataset alone was sufficient to train a fully functional neural net (thus eliminating a need for additional data collection). The dataset was augmented using synthetic oversampling (model.py lines 72 - 88) in order to achieve a roughly uniform distribution of steering angles.
 
 For details about how I created the training data, see the next section. 
 
@@ -140,11 +140,11 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstraited by NVIDIA net.
+The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstrated by NVIDIA net.
 
-However, in order to reduceoverfiting and increase training speed I used dropout and batch normalization. In addition, I replanced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
+However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
 
-At training the model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by turning off the dropout at evaluation stage. The improvement in accuracy also signifies the absence of overfitting.
+At training, a selected model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by a combination of simpler data samples and the effect of turning off the dropout at evaluation stage. A validation set skewed towards samples with small steering angles (driving on a straight line).The improvement in accuracy also signifies the absence of overfitting.
 
 The final step was to run the simulator to see how well the car was driving around track one. The car successfully navigated the track one for 5 laps at default speed of 9mph. In addition, I tested the net at 15mph setting, and the model successfully completed the track.
 
