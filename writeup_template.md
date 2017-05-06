@@ -48,7 +48,7 @@ The model.py contains the code for training and saving the convolution neural ne
 ### Model Architecture and Training Strategy
 The model was trained using the following settings:
 
-python model.py --top_crop 50 --model_type SimplifiedModel --shift_value 0.5 --batch_size 128 --epochs 3 --model_name SimpleDropoutModel_croppped_shift0.5.h5
+python model.py --top_crop 50 --model_type SimplifiedModel --noshift --batch_size 256 --epochs 5 --model_name model.h5
 
 #### 1. An appropriate model architecture has been employed
 
@@ -128,11 +128,11 @@ The model was trained and validated on different subsets sets created by trainin
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 102).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 105).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The data was augmented with sharp corner steering. The created dataset was normalized to achieve a uniform distribution of steering angles (in the ground truth).
+Training data was chosen to keep the vehicle driving on the road. I used a data set provided by Udacity. The dataset alone was sufficient to train a fully functional neural net (thus elliminating a need for additional data collection). The dataset was augmented using syntetic oversampling in order to achieve a roughly uniform distribution of steering angles.
 
 For details about how I created the training data, see the next section. 
 
