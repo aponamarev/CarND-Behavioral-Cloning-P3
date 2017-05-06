@@ -68,19 +68,22 @@ else:
 
 train_paths, val_paths = create_paths_to_images(train_paths, FLAGS.data_location), create_paths_to_images(val_paths, FLAGS.data_location)
 
-"""
-import matplotlib.pyplot as plt
-n, bins, patches = plt.hist(descriptor.steering, bins=n_bins, color='grey')
-plt.xlabel('Classes')
-plt.ylabel('Samples')
-plt.show()
-"""
 
 Y_train_binned = continuous_to_bins(train_steering, n_bins=FLAGS.bins)
 binned_indices = rebalanced_set(Y_train_binned)
 
 train_paths, train_steering = ensure_valid_values(train_paths, train_steering)
 val_paths, val_steering = ensure_valid_values(val_paths, val_steering)
+
+import matplotlib.pyplot as plt
+n, bins, patches = plt.hist([train_steering, train_steering[binned_indices]],
+                            bins=FLAGS.bins,
+                            label=['train_steering','rebalanced_steering'],
+                            color=['grey', 'blue'])
+plt.xlabel('Classes')
+plt.ylabel('Samples')
+plt.legend()#handles=['train_steering','rebalanced_steering']
+plt.show()
 
 train_paths, train_steering = train_paths[binned_indices], train_steering[binned_indices]
 print("Training set size: {}, Validation set size: {}".format(len(train_paths), len(val_steering)))
