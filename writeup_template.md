@@ -15,12 +15,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/data_distribution.png "data_distribution"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[video1]: ./run1.mp4 "results"
 
 ---
 
@@ -43,7 +38,7 @@ python drive.py model.h5
 ```
 
 #### 3. Submission code is usable and readable
-The model.py contains the code for training and saving the convolution neural network. As described above the model architecture was buidl using src/Models/SimplifiedModel.py
+The model.py contains the code for training and saving the convolution neural network. As described above the model architecture was build using src/Models/SimplifiedModel.py
 
 ### Model Architecture and Training Strategy
 The model was trained using the following settings:
@@ -150,28 +145,17 @@ The final step was to run the simulator to see how well the car was driving arou
 
 #### 2. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I started with the dataset provided by Udacity. The data set was heavily skewed towards driving on the straight-line. Therefore I had to create synthetic over-sampling algorithm that allowed me to rebalance the number of samples with high degree of steering (sharp turns) to achieve a uniform distribution.
+To capture good driving behavior, I started with the dataset provided by Udacity. The data set was heavily skewed towards driving on the straight-line, which could result in an optimization problem. Therefore to eliminate this problem I had to rebalance the data. However, before rebalancing the dataset, I split the original set into training and validation dataset (setting 15% of the data for validation - model.py lines 61 - 67). Then, I create synthetic over-sampling algorithm that allowed me to rebalance the number of samples with high degree of steering (sharp turns) to achieve a uniform distribution.
 
+The chart below presents the distribution of an original training dataset (in grey) and a rebalanced dataset (in blue):
 ![data_distribution][image1]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+The resulting rebalanced dataset had a good mix of driving on the straight line in the middle of the road as well as going through the corners. In addition to rebalancing the data, I also randomly flipped images and angles thinking that this would remove any potential bias of oversteering in one direction.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+As a result of the preprocessing the data and splitting the data into training and validation datasets, I had:
+Training set size: 34140, Validation set size: 1206
 
-Then I repeated this process on track two in order to get more data points.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. Through experimentation I determined that the minimal necessary number of epochs was 3. However, to ensure consistency I ran training for 5 epochs. I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+The results of the algorithm are presented below:
+![result][video1]
