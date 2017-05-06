@@ -61,59 +61,59 @@ The model includes RELU activations to introduce nonlinearity, and the data is n
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to                     
 ====================================================================================================
-cropping2d_1 (Cropping2D)        (None, 90, 320, 3)    0           cropping2d_input_1[0][0]         
+cropping2d_1 (Cropping2D)        (None, 90, 320, 3)    0           cropping2d_input_1         
 ____________________________________________________________________________________________________
-lambda_1 (Lambda)                (None, 90, 320, 3)    0           cropping2d_1[0][0]               
+lambda_1 (Lambda)                (None, 90, 320, 3)    0           cropping2d_1               
 ____________________________________________________________________________________________________
-convolution2d_1 (Convolution2D)  (None, 90, 320, 16)   448         lambda_1[0][0]                   
+convolution2d_1 (Convolution2D)  (None, 90, 320, 16)   448         lambda_1               
 ____________________________________________________________________________________________________
-convolution2d_2 (Convolution2D)  (None, 44, 159, 16)   2320        convolution2d_1[0][0]            
+convolution2d_2 (Convolution2D)  (None, 44, 159, 16)   2320        convolution2d_1            
 ____________________________________________________________________________________________________
-dropout_1 (Dropout)              (None, 44, 159, 16)   0           convolution2d_2[0][0]            
+dropout_1 (Dropout)              (None, 44, 159, 16)   0           convolution2d_2            
 ____________________________________________________________________________________________________
-batchnormalization_1 (BatchNorma (None, 44, 159, 16)   64          dropout_1[0][0]                  
+batchnormalization_1 (BatchNorma (None, 44, 159, 16)   64          dropout_1                  
 ____________________________________________________________________________________________________
-convolution2d_3 (Convolution2D)  (None, 44, 159, 32)   4640        batchnormalization_1[0][0]       
+convolution2d_3 (Convolution2D)  (None, 44, 159, 32)   4640        batchnormalization_1       
 ____________________________________________________________________________________________________
-convolution2d_4 (Convolution2D)  (None, 21, 79, 32)    9248        convolution2d_3[0][0]            
+convolution2d_4 (Convolution2D)  (None, 21, 79, 32)    9248        convolution2d_3            
 ____________________________________________________________________________________________________
-dropout_2 (Dropout)              (None, 21, 79, 32)    0           convolution2d_4[0][0]            
+dropout_2 (Dropout)              (None, 21, 79, 32)    0           convolution2d_4            
 ____________________________________________________________________________________________________
-batchnormalization_2 (BatchNorma (None, 21, 79, 32)    128         dropout_2[0][0]                  
+batchnormalization_2 (BatchNorma (None, 21, 79, 32)    128         dropout_2                  
 ____________________________________________________________________________________________________
-convolution2d_5 (Convolution2D)  (None, 21, 79, 64)    18496       batchnormalization_2[0][0]       
+convolution2d_5 (Convolution2D)  (None, 21, 79, 64)    18496       batchnormalization_2       
 ____________________________________________________________________________________________________
-convolution2d_6 (Convolution2D)  (None, 10, 39, 64)    36928       convolution2d_5[0][0]            
+convolution2d_6 (Convolution2D)  (None, 10, 39, 64)    36928       convolution2d_5            
 ____________________________________________________________________________________________________
-dropout_3 (Dropout)              (None, 10, 39, 64)    0           convolution2d_6[0][0]            
+dropout_3 (Dropout)              (None, 10, 39, 64)    0           convolution2d_6            
 ____________________________________________________________________________________________________
-batchnormalization_3 (BatchNorma (None, 10, 39, 64)    256         dropout_3[0][0]                  
+batchnormalization_3 (BatchNorma (None, 10, 39, 64)    256         dropout_3                  
 ____________________________________________________________________________________________________
-convolution2d_7 (Convolution2D)  (None, 10, 39, 64)    36928       batchnormalization_3[0][0]       
+convolution2d_7 (Convolution2D)  (None, 10, 39, 64)    36928       batchnormalization_3       
 ____________________________________________________________________________________________________
-convolution2d_8 (Convolution2D)  (None, 4, 19, 64)     36928       convolution2d_7[0][0]            
+convolution2d_8 (Convolution2D)  (None, 4, 19, 64)     36928       convolution2d_7            
 ____________________________________________________________________________________________________
-batchnormalization_4 (BatchNorma (None, 4, 19, 64)     256         convolution2d_8[0][0]            
+batchnormalization_4 (BatchNorma (None, 4, 19, 64)     256         convolution2d_8            
 ____________________________________________________________________________________________________
-dropout_4 (Dropout)              (None, 4, 19, 64)     0           batchnormalization_4[0][0]       
+dropout_4 (Dropout)              (None, 4, 19, 64)     0           batchnormalization_4       
 ____________________________________________________________________________________________________
-convolution2d_9 (Convolution2D)  (None, 4, 19, 128)    73856       dropout_4[0][0]                  
+convolution2d_9 (Convolution2D)  (None, 4, 19, 128)    73856       dropout_4                  
 ____________________________________________________________________________________________________
-convolution2d_10 (Convolution2D) (None, 1, 9, 128)     147584      convolution2d_9[0][0]            
+convolution2d_10 (Convolution2D) (None, 1, 9, 128)     147584      convolution2d_9            
 ____________________________________________________________________________________________________
-batchnormalization_5 (BatchNorma (None, 1, 9, 128)     512         convolution2d_10[0][0]           
+batchnormalization_5 (BatchNorma (None, 1, 9, 128)     512         convolution2d_10           
 ____________________________________________________________________________________________________
-flatten_1 (Flatten)              (None, 1152)          0           batchnormalization_5[0][0]       
+flatten_1 (Flatten)              (None, 1152)          0           batchnormalization_5       
 ____________________________________________________________________________________________________
-dropout_5 (Dropout)              (None, 1152)          0           flatten_1[0][0]                  
+dropout_5 (Dropout)              (None, 1152)          0           flatten_1                  
 ____________________________________________________________________________________________________
-dense_1 (Dense)                  (None, 128)           147584      dropout_5[0][0]                  
+dense_1 (Dense)                  (None, 128)           147584      dropout_5                  
 ____________________________________________________________________________________________________
-dense_2 (Dense)                  (None, 64)            8256        dense_1[0][0]                    
+dense_2 (Dense)                  (None, 64)            8256        dense_1                    
 ____________________________________________________________________________________________________
-dense_3 (Dense)                  (None, 16)            1040        dense_2[0][0]                    
+dense_3 (Dense)                  (None, 16)            1040        dense_2                    
 ____________________________________________________________________________________________________
-dense_4 (Dense)                  (None, 1)             17          dense_3[0][0]                    
+dense_4 (Dense)                  (None, 1)             17          dense_3                    
 ====================================================================================================
 Total params: 525,489
 Trainable params: 524,881
