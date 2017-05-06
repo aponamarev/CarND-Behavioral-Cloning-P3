@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./examples/data_distribution.png "data_distribution"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
@@ -148,19 +148,11 @@ At training, a selected model demonstrated 30-34% accuracy. However the accuracy
 
 The final step was to run the simulator to see how well the car was driving around track one. The car successfully navigated the track one for 5 laps at default speed of 9mph. In addition, I tested the net at 15mph setting, and the model successfully completed the track.
 
-####2. Final Model Architecture
+#### 2. Creation of the Training Set & Training Process
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+To capture good driving behavior, I started with the dataset provided by Udacity. The data set was heavily skewed towards driving on the straight-line. Therefore I had to create synthetic over-sampling algorithm that allowed me to rebalance the number of samples with high degree of steering (sharp turns) to achieve a uniform distribution.
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-####3. Creation of the Training Set & Training Process
-
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
+![data_distribution][image1]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
