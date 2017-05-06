@@ -15,6 +15,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/data_distribution.png "data_distribution"
+[video1]: ./run1.mp4 "results"
 
 ---
 
@@ -155,3 +156,6 @@ As a result of the preprocessing the data and splitting the data into training a
 Training set size: 34140, Validation set size: 1206
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. Through experimentation I determined that the minimal necessary number of epochs was 3. However, to ensure consistency I ran training for 5 epochs. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+The results of the algorithm are presented below:
+![result][video1]
