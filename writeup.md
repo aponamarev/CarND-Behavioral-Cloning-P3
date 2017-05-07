@@ -142,8 +142,8 @@ The overall strategy for deriving a model architecture was to test a lightweight
 
 However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels. The network was also modified to crop images on the top and bottom to eliminate the parts of the image that do not provide useful information. Results of crop-preprocessing presented below:
 
-###### Original image:      | ###### Cropped image:
-![original][image2] | ![cropped][image3]
+###### Original image vs. Cropped image:
+![original][image2] ![cropped][image3]
 
 At training, a selected model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by a combination of simpler data samples and the effect of turning off the dropout at evaluation stage. A validation set skewed towards samples with small steering angles (driving on a straight line).The improvement in accuracy also signifies the absence of overfitting.
 
@@ -159,11 +159,8 @@ To capture good driving behavior, I started with the dataset provided by Udacity
 The resulting rebalanced dataset had a good mix of driving on the straight line in the middle of the road as well as going through the corners. In addition to rebalancing the data, I also randomly flipped images and angles thinking that this would remove any potential bias of oversteering in one direction.
 
 The results of horizontal flip augmentation presented below:
-#### Image before horizontal flip:
-![cropped][image3]
-
-#### Image after horizontal flip
-![flipped][image4]
+#### Image before horizontal flip vs. Image after horizontal flip
+![cropped][image3]  ![flipped][image4]
 
 As a result of the preprocessing the data and splitting the data into training and validation datasets, I had:
 Training set size: 34140, Validation set size: 1206
