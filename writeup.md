@@ -15,6 +15,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/data_distribution.png "data_distribution"
+[image2]: ./examples/original_img.jpg "original"
+[image3]: ./examples/cropped_img.jpg "cropped"
+[image4]: ./examples/cropped_and_flipped_img.jpg "flipped"
 [video1]: ./run1.mp4 "results"
 
 ---
@@ -137,7 +140,12 @@ For details about how I created the training data, see the next section.
 
 The overall strategy for deriving a model architecture was to test a lightweight nets. I started with simple one layer convolutional architecture, then compare its performance to LeNet, and the network architecture designed by NVIDIA.The best performance was demonstrated by NVIDIA net.
 
-However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels.
+However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels. The network was also modified to crop images on the top and bottom to eliminate the parts of the image that do not provide useful information. Results of crop-preprocessing presented below:
+
+Original image:
+![original][image2]
+Cropped image:
+![cropped][image3]
 
 At training, a selected model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by a combination of simpler data samples and the effect of turning off the dropout at evaluation stage. A validation set skewed towards samples with small steering angles (driving on a straight line).The improvement in accuracy also signifies the absence of overfitting.
 
@@ -151,6 +159,12 @@ The chart below presents the distribution of an original training dataset (in gr
 ![data_distribution][image1]
 
 The resulting rebalanced dataset had a good mix of driving on the straight line in the middle of the road as well as going through the corners. In addition to rebalancing the data, I also randomly flipped images and angles thinking that this would remove any potential bias of oversteering in one direction.
+
+The results of horizontal flip augmentation presented below:
+Image before horizontal flip:
+![cropped][image3]
+Image after horizontal flip
+![flipped][image4]
 
 As a result of the preprocessing the data and splitting the data into training and validation datasets, I had:
 Training set size: 34140, Validation set size: 1206
