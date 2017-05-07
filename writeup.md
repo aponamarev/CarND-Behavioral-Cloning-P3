@@ -142,11 +142,8 @@ The overall strategy for deriving a model architecture was to test a lightweight
 
 However, in order to reduce overfitting and increase training speed I used dropout and batch normalization. In addition, I replaced 5x5 convolutional layers with 2 convolutional layers with 3x3 kernels. The network was also modified to crop images on the top and bottom to eliminate the parts of the image that do not provide useful information. Results of crop-preprocessing presented below:
 
-*** Original image:***
-![original][image2]
-
-*** Cropped image:***
-![cropped][image3]
+###### Original image:      | ###### Cropped image:
+![original][image2] | ![cropped][image3]
 
 At training, a selected model demonstrated 30-34% accuracy. However the accuracy was at 50-54% at validation stage. The increase in accuracy is most likely driven by a combination of simpler data samples and the effect of turning off the dropout at evaluation stage. A validation set skewed towards samples with small steering angles (driving on a straight line).The improvement in accuracy also signifies the absence of overfitting.
 
@@ -156,16 +153,16 @@ The final step was to run the simulator to see how well the car was driving arou
 
 To capture good driving behavior, I started with the dataset provided by Udacity. The data set was heavily skewed towards driving on the straight-line, which could result in an optimization problem. Therefore to eliminate this problem I had to rebalance the data. However, before rebalancing the dataset, I split the original set into training and validation dataset (setting 15% of the data for validation - model.py lines 61 - 67). Then, I create synthetic over-sampling algorithm that allowed me to rebalance the number of samples with high degree of steering (sharp turns) to achieve a uniform distribution.
 
-*** The chart below presents the distribution of an original training dataset (in grey) and a rebalanced dataset (in blue):***
+#### The chart below presents the distribution of an original training dataset (in grey) and a rebalanced dataset (in blue):
 ![data_distribution][image1]
 
 The resulting rebalanced dataset had a good mix of driving on the straight line in the middle of the road as well as going through the corners. In addition to rebalancing the data, I also randomly flipped images and angles thinking that this would remove any potential bias of oversteering in one direction.
 
 The results of horizontal flip augmentation presented below:
-***Image before horizontal flip:***
+#### Image before horizontal flip:
 ![cropped][image3]
 
-***Image after horizontal flip:***
+#### Image after horizontal flip
 ![flipped][image4]
 
 As a result of the preprocessing the data and splitting the data into training and validation datasets, I had:
