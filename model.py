@@ -7,7 +7,8 @@ from src.utils.general_utils import rebalanced_set, \
     continuous_to_bins, generate_data_with_augmentation_from,\
     create_paths_to_images, ensure_valid_values
 from keras.optimizers import Adam
-import keras.backend.tensorflow_backend as K
+from keras.backend import tensorflow_backend as K
+from keras.callbacks import TensorBoard
 
 from src.Models.SimplifiedModel import SimplifiedModel
 from src.Models.SimplifiedModel_Extra_Dropout import SimplifiedModelExtraDropout
@@ -44,6 +45,8 @@ tf.flags.DEFINE_float('shift_value', 0.20,
                       'Define the shift value for cameras - Default: 0.20')
 tf.flags.DEFINE_float('width', 1.0,
                       'Define the width scaller for the net. Default: 1.0 (float)')
+tf.flags.DEFINE_float('weight_decay', 0.01,
+                      'Define sigma for L2 regularization. Default: 0.01')
 tf.flags.DEFINE_bool('shift', True, "Camera shift augmentation is set for True. Set for False to turn off.")
 tf.flags.DEFINE_bool('flip', True, "Camera flip augmentation is set for True. Set for False to turn off.")
 
@@ -86,7 +89,7 @@ binned_indices = rebalanced_set(Y_train_binned)
 train_paths, train_steering = ensure_valid_values(train_paths, train_steering)
 val_paths, val_steering = ensure_valid_values(val_paths, val_steering)
 # - Visualize the distribution of the data before and after rebalancing
-import matplotlib.pyplot as plt
+"""import matplotlib.pyplot as plt
 n, bins, patches = plt.hist([train_steering, train_steering[binned_indices]],
                             bins=FLAGS.bins,
                             label=['train_steering','rebalanced_steering'],
@@ -95,7 +98,7 @@ n, bins, patches = plt.hist([train_steering, train_steering[binned_indices]],
 plt.xlabel('Steering Values')
 plt.ylabel('Samples')
 plt.legend()
-plt.show()
+plt.show()"""
 # 3. Rebalance the data by applying derived indicies to the training dataset
 train_paths, train_steering = train_paths[binned_indices], train_steering[binned_indices]
 # Report stats
@@ -118,9 +121,10 @@ if FLAGS.model_type == 'SimplifiedModelExtraDropout':
 # setting allow_soft_placement=True of tf.ConfigProto
 config = K.tf.ConfigProto(allow_soft_placement=True)
 config.gpu_options.allow_growth = True
-K.set_session(tf.Session(config=config))
+K.set_session(K.tf.Session(config=config))
 # Compilre resulting net to training the network using Mean Squared Error loss function and report network accuracy.
 model.compile(loss='mse', optimizer=Adam(), metrics=['accuracy'])
+TensorBoard(log_dir=model_path, histogram_freq=0.5, write_graph=True, write_images=True)
 # Report the resulting architecture of the net
 model.summary()
 
